@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 
 type Stage = "home" | "pause" | "route" | "outcome" | "confirmed" | "protocol";
+type Route = "family" | "primary" | "backup";
 type EventItem = { type: string; at: string };
 const KEY = "family-shield-demo-events";
 
 export default function Home() {
   const [stage, setStage] = useState<Stage>("home");
-  const [contact, setContact] = useState<"primary" | "backup">("primary");
+  const [route, setRoute] = useState<Route>("family");
   const [events, setEvents] = useState<EventItem[]>([]);
   const [ready, setReady] = useState(false);
 
@@ -28,23 +29,26 @@ export default function Home() {
     setEvents(next);
     try { localStorage.setItem(KEY, JSON.stringify(next)); } catch {}
   }
-  function start() { track("verification_started"); setStage("pause"); }
-  function goToRoute(which: "primary" | "backup") {
-    setContact(which);
-    track(which === "primary" ? "primary_contact_route_opened" : "backup_contact_route_opened");
+  function start() { track("verification_started"); setRoute("family"); setStage("pause"); }
+  function openRoute(which: Route) {
+    setRoute(which);
+    track(which + "_route_opened");
     setStage("route");
   }
   function openOutcome() {
-    track(contact === "primary" ? "primary_contact_attempted" : "backup_contact_attempted");
+    track(route + "_contact_attempted");
     setStage("outcome");
   }
   function confirmed() { track("user_reports_independent_confirmation"); setStage("confirmed"); }
   function unconfirmed() { track("protocol_only_activated"); setStage("protocol"); }
-  function restart() { track("flow_restarted"); setStage("home"); setContact("primary"); }
+  function restart() { track("flow_restarted"); setStage("home"); setRoute("family"); }
   function clearLog() {
     setEvents([]);
     try { localStorage.removeItem(KEY); } catch {}
   }
+
+  const routeTitle = route === "family" ? "tu familiar" : route === "primary" ? "el contacto de confianza 1" : "el contacto de respaldo 2";
+  const outcomeTitle = route === "family" ? "¿Pudiste hablar con tu familiar?" : route === "primary" ? "¿Pudiste comprobarlo con el contacto 1?" : "¿Pudiste comprobarlo con el contacto 2?";
 
   return (
     <main className="shell">
@@ -82,36 +86,28 @@ export default function Home() {
           <h2>No envíes dinero todavía.</h2>
           <p>Si alguien te presiona para pagar o compartir códigos, termina la llamada. Respira y comprueba la situación por un canal distinto.</p>
           <div className="notice"><strong>Recuerda:</strong> escuchar una voz conocida o ver un número en pantalla no demuestra quién está llamando.</div>
-          <button className="primary" onClick={() => { track("pause_acknowledged"); setStage("route"); setContact("primary"); }}>Entendido, voy a comprobarlo <b>→</b></button>
+          <button className="primary" onClick={() => { track("pause_acknowledged"); setStage("route"); setRoute("family"); }}>Entendido, voy a comprobarlo <b>→</b></button>
         </div>}
 
         {stage === "route" && <div className="screen">
           <div className="step-label">PASO 2 DE 3 · COMPRUEBA POR OTRO MEDIO</div>
-          {contact === "primary" ? <>
-            <h2>Llama tú al número que ya tienes guardado.</h2>
-            <p>No devuelvas la llamada al número que te acaba de contactar. Abre tus contactos y marca el número habitual de tu familiar.</p>
-            <div className="notice subtle"><strong>Si no contesta:</strong> después podrás intentar con el primer contacto de confianza que tu familia eligió.</div>
-            <button className="primary" onClick={() => goToRoute("primary")}>Ya intenté llamar a mi familiar</button>
-          </> : <>
-            <h2>Ahora intenta con el contacto de respaldo 2.</h2>
-            <p>El contacto 1 no pudo ayudarte. Usa el número que ya tienes guardado para tu segundo contacto de confianza.</p>
-            <button className="primary" onClick={openOutcome}>Ya intenté con el contacto 2</button>
-          </>}
-          {contact === "primary" && <button className="text-button" onClick={unconfirmed}>No puedo llamar a nadie</button>}
-          {contact === "backup" && <button className="text-button" onClick={unconfirmed}>Tampoco puedo contactar al respaldo</button>}
+          <h2>{route === "family" ? "Llama tú al número que ya tienes guardado." : "Ahora intenta con " + routeTitle + "."}</h2>
+          <p>{route === "family" ? "No devuelvas la llamada al número que te acaba de contactar. Abre tus contactos y marca el número habitual de tu familiar." : "Usa el número que ya tienes guardado para esta persona. No uses números que te haya dado quien te llamó."}</p>
+          <div className="notice subtle"><strong>Importante:</strong> la app no hace la llamada. Tú compruebas la situación por un canal que ya conoces.</div>
+          <button className="primary" onClick={openOutcome}>Ya intenté llamar <b>→</b></button>
+          <button className="text-button" onClick={unconfirmed}>No puedo contactar a nadie</button>
         </div>}
 
         {stage === "outcome" && <div className="screen">
           <div className="step-label">PASO 3 DE 3 · RESULTADO DE LA COMPROBACIÓN</div>
           <div className="shield-icon">?</div>
-          <h2>{contact === "primary" ? "¿Pudiste comprobarlo al llamar a tu familiar?" : "¿Pudiste comprobarlo con el contacto 2?"}</h2>
+          <h2>{outcomeTitle}</h2>
           <p>La app no hace llamadas ni verifica identidades. Marca confirmación solo si hablaste por otro medio y comprobaste la situación directamente.</p>
           <div className="notice"><strong>La clave familiar es una señal adicional</strong>, nunca la única prueba de identidad.</div>
           <button className="primary" onClick={confirmed}>Sí, lo comprobé por otro medio</button>
-          {contact === "primary" ? <>
-            <button className="secondary full" onClick={() => goToRoute("backup")}>No contestó; intentar contacto 2</button>
-            <button className="text-button" onClick={unconfirmed}>No pude comprobarlo</button>
-          </> : <button className="secondary full" onClick={unconfirmed}>No pude comprobarlo</button>}
+          {route === "family" && <button className="secondary full" onClick={() => openRoute("primary")}>No contestó; intentar contacto 1</button>}
+          {route === "primary" && <button className="secondary full" onClick={() => openRoute("backup")}>No contestó; intentar contacto 2</button>}
+          <button className="text-button" onClick={unconfirmed}>No pude comprobarlo</button>
         </div>}
 
         {stage === "confirmed" && <div className="screen">
