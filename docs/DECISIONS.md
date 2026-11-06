@@ -14,18 +14,24 @@
 - Next.js 15.5.28 + React 19.1.2 + TypeScript + CSS on Vercel.
 - GitHub repository: reginabuilds/family-rehearsal.
 - Production alias: https://family-rehearsal.vercel.app.
+- Latest production deployment: READY, commit 29ca331cfd134467fbee52ff2049fdceece7fa0d.
+- Deployment history includes two successful production builds after the initial vulnerable-dependency build failed.
 - Anonymous event log stays in browser localStorage and stores only event type + timestamp.
 - No backend database or Supabase is used because the prototype does not need to store personal data.
 - Demo uses fictional roles and labels; no real family data is requested.
 - No secrets or API keys are included in source.
 
-## Open items
-- Run the live mechanical pass T1–T10 in a browser and save screenshots/notes.
-- Run five Layer 2 real-user sessions; at least three participants must be strangers.
-- Rank three actual pains; fix and retest the #1 observed pain with before/after evidence.
-- Capture a genuine voluntary return signal if one occurs.
-- Record the live demo video.
-- The course's generated-image mockup requirement is intentionally not completed at the user's request; the packet contains a text wireframe instead.
+## Course requirements still requiring external evidence
+- Live browser mechanical check T1–T10 and dated screenshots/notes.
+- Five Layer 2 real-user sessions; at least three participants must be strangers.
+- Rank three observed pains; fix and retest #1 with before/after evidence.
+- A genuine voluntary return signal, if one occurs.
+- A live screen recording for DEMO.mp4.
+- The course's generated-image mockup is intentionally omitted at the user's explicit request; the packet contains a text wireframe instead.
 
 ## Session close
-- First move next session: open the public production URL on a mobile viewport and execute T1–T10.
+- Packet structure follows the exact ten required sections.
+- Packet is committed before implementation in the repository history.
+- The first deployment failed because of a vulnerable Next.js version; dependencies were upgraded to patched releases.
+- The latest production deployment is READY and the custom alias is assigned.
+- Do not claim human testing, return evidence, or a recorded video until those events actually happen.
