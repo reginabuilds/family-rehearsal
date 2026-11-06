@@ -2,7 +2,7 @@
 **Owner:** Regina Cucchia Villalobos  
 **Role:** USER  
 **Milestone:** Real Humans — Five Users Who Don't Love You  
-**Status:** Build plan and prototype specification. Real-user evidence is pending.
+**Status:** Functional prototype specification; five real-user sessions and return evidence are pending.
 
 ## 1. Problem in my words
 A person receives an urgent call or voice note that appears to come from a family member and asks for money. Under fear and time pressure, the recipient may act before checking the story independently. Voice cloning makes hearing a familiar voice insufficient proof. The gap is not only awareness: families often have not agreed, configured, and rehearsed a simple verification routine before an emergency.
@@ -11,7 +11,7 @@ A person receives an urgent call or voice note that appears to come from a famil
 Initial segment: Mexican parents approximately 45–65 whose adult children (18–25) live elsewhere. The parent may receive the suspicious call and be the person asked to send money; the adult child is the person being impersonated or supposedly in danger. The prototype must also be understandable to an older adult with low confidence using unfamiliar apps, slow reading speed, and routine use of WhatsApp.
 
 ## 3. Success definition
-Before the module closes, a first-time user can start the emergency flow, understand the pause instruction, choose the first or backup trusted contact, and correctly understand the “independently confirmed” versus “not confirmed / Protocol Only” outcomes without coaching. The app logs anonymous interaction events locally. This is a functional prototype success criterion, not proof of fraud prevention, 10:1 value, willingness to pay, or commercial viability.
+Before the module closes, a first-time user can follow the sequence without coaching: pause; call the family member using a number already saved; if unavailable, try trusted contact 1 and then trusted contact 2; and correctly understand the difference between a reported independent check and an unconfirmed request. The user must understand that the app itself does not verify identity. The app logs anonymous interaction events locally. This is a functional prototype criterion, not proof of fraud prevention, 10:1 value, willingness to pay, or commercial viability.
 
 ## 4. Screen mockup — text-only substitute
 The user explicitly requested no generated image. This text wireframe is a substitute and does **not** satisfy the course's image-generated mockup requirement.
@@ -19,23 +19,23 @@ The user explicitly requested no generated image. This text wireframe is a subst
 **Screen 1 — Home**
 - FAMILY SHIELD · DEMO · DATOS FICTICIOS
 - Headline: “Pausa antes de pagar.”
-- Copy: “Antes de enviar dinero, verifica por otro medio con alguien de confianza.”
+- Copy: “Antes de enviar dinero, comprueba la situación por otro medio.”
 - CTA: “Iniciar verificación”
 
 **Screen 2 — Pause**
 - “No envíes dinero todavía.”
-- “Termina la llamada si te presionan. Respira y verifica por un canal distinto.”
-- CTA: “Entendido, voy a verificar”
+- “Termina la llamada si te presionan. Respira y comprueba la situación por un canal distinto.”
+- CTA: “Entendido, voy a comprobarlo”
 
-**Screen 3 — Independent route**
-- “Usa un contacto que ya conoces.”
-- First contact, then backup contact, using numbers already saved in the user's phone.
-- Family security phrase is an additional signal, never the only proof.
+**Screen 3 — Contact sequence**
+- First: call the family member using the number already saved; never call back the number supplied by the suspicious caller.
+- If there is no answer: trusted contact 1, then trusted contact 2.
+- A family security phrase is an additional signal, never the only proof.
 
 **Screen 4 — Outcome**
-- “¿Pudiste confirmar por otro medio?”
-- Yes: “Confirmación independiente realizada” — explicitly not a guarantee or payment authorization.
-- No: “Protocol Only — no se pudo confirmar; mantén la pausa.”
+- “¿Pudiste comprobarlo por otro medio?”
+- Yes: “Comprobación por otro medio realizada” — not a guarantee or payment authorization.
+- No: “No se pudo comprobar. Mantén la pausa.”
 
 ## 5. Feature flow — Mermaid swimlane
 ~~~mermaid
@@ -44,24 +44,24 @@ flowchart TD
     A[Receives urgent call or voice note]
     B[Opens Family Shield]
     C[Pauses; does not transfer money]
-    D[Calls relative on a previously saved number]
-    E[If unavailable, contacts trusted person 1]
-    F[If unavailable, contacts trusted person 2]
-    G{Independent confirmation obtained?}
+    D[Calls family member on a previously saved number]
+    E[Tries trusted contact 1]
+    F[Tries trusted contact 2]
+    G{Could the situation be checked independently?}
     H[Keeps payment decision under own control]
-    I[Protocol Only: no transfer while unverified]
+    I[Pause protocol: no transfer while unconfirmed]
   end
   subgraph PRODUCT[FAMILY SHIELD]
     J[Shows calm pause instruction]
-    K[Shows contact order and reminder]
-    L[Records anonymous event type locally]
+    K[Shows finite contact order]
+    L[Logs anonymous event type locally]
     M[Shows non-certifying outcome]
   end
   subgraph TRUST[TRUSTED CONTACTS]
     N[Confirm separately using an existing channel]
     O[Unavailable / cannot confirm]
   end
-  A --> B --> J --> C --> K --> D
+  A --> B --> J --> C --> D
   D -->|No answer| E
   E -->|No answer| F
   D -->|Answers| N
@@ -79,10 +79,10 @@ flowchart TD
   I --> L
 ~~~
 
-## 6. Global benchmark line
-- **Best existing solution for the family verification behavior:** UK Government's Stop! Think Fraud guidance recommends a family safe phrase, hanging up when pressured, and calling back through a known number. Family Shield localizes that guidance into a rehearsable Mexican family contact order, a short Spanish-language flow, and a Protocol Only fallback.
-- **Complementary system benchmark:** Singapore's ScamShield combines app-based checking/blocking, scam reporting, public information, and a 24/7 helpline. Family Shield does not copy its detection or national infrastructure; it focuses narrowly on household preparedness and independent confirmation.
-- **Mexican baseline:** Guardia Nacional CERT-MX advises verifying serious family situations through another channel and creating family key words. Family Shield's gap hypothesis is that advice is not the same as a configured and rehearsed household routine; this must be tested, not assumed.
+## 6. Global benchmark — global to local
+- **Closest family-verification benchmark: UK Government, Stop! Think Fraud.** Its phone-fraud guidance recommends a family safe phrase, ending a pressured call, and calling back using a known number. Family Shield localizes this into a short Spanish-language sequence for Mexican households: saved-number callback, two trusted contacts in a finite order, and a plain-language pause fallback.
+- **Complementary system benchmark: Singapore ScamShield.** The government-backed suite combines scam checking/blocking, reporting, public information, and a 24/7 helpline. Family Shield does not copy its detection or national infrastructure; it focuses narrowly on household preparation and independent confirmation.
+- **Mexican baseline: Guardia Nacional CERT-MX and SSPC.** Mexican authorities already advise verifying serious family situations through another channel and agreeing on family key words. Family Shield's gap hypothesis is that public advice is not the same as a configured and rehearsed household routine; this must be tested rather than assumed.
 
 ## 7. Long view — three years
 If this slice works, Family Shield could become a lightweight family preparedness service that helps households configure trusted-contact order, private verification phrases, and periodic rehearsals. Distribution could be tested through banks or other trusted institutions, while keeping family data private and leaving payment decisions with the user. In three years, the product should still be a coordination and preparedness layer—not a voice-authenticity detector, emergency authority, or payment controller.
@@ -100,29 +100,39 @@ If this slice works, Family Shield could become a lightweight family preparednes
 ## 9. Architecture and stack
 | Layer | Choice | Reason / boundary |
 |---|---|---|
-| UI | Next.js 15 + React + TypeScript | Small, testable client-side flow |
+| UI | Next.js 15.5.28 + React 19.1.2 + TypeScript | Small, testable client-side flow; patched dependency release |
 | Styling | CSS, responsive and reduced-motion aware | No external UI dependency |
-| Hosting | Vercel project family-rehearsal | Existing project; public access must be verified |
+| Hosting | Existing Vercel project family-rehearsal | Public deployment; verify access without sign-in |
 | Source control | GitHub reginabuilds/family-rehearsal | Versioned source and docs |
 | Feedback | Anonymous local event log | Event type + timestamp only; clearable |
 | Database | None | No personal data is sent to a server |
-| Authentication / RLS | Not applicable to this prototype | No account or user-data table exists |
+| Authentication / RLS | Not applicable to this slice | No account or user-data table exists |
 | Secrets | None in source | No API keys or third-party services |
 
-## 10. Test plan
-1. Mechanical pass: verify all six screens/states, contact 1 then contact 2, confirmation, Protocol Only, restart, clear log, keyboard focus, mobile layout, and reduced-motion behavior.
-2. Bug hunt: test the “no contact can be reached” path from the contact-selection screen; verify that it cannot be mistaken for confirmation.
-3. Persona pass (Layer 1): synthetic Doña Mari, 54, sells food outside a metro station, uses WhatsApp, distrusts unfamiliar apps, and reads slowly. Give her screenshots/screen text in sequence; observe hesitation, misread terms, and abandonment. Mark all outputs as synthetic.
-4. Layer 2 (required separately): five real users who could receive or act on an urgent family call; at least three strangers. Record role, task, observed struggle, exact quote, assistance, and consented anonymous notes. Do not invent these sessions.
-5. Pain ranking: rank three observed findings by threat to the 10:1 value case. Fix the #1 pain, redeploy, and repeat the same task.
-6. Return signal: count only an unsolicited repeat visit, message, or signup as proof. A compliment or invited second task is not proof.
-7. Security floor: no secrets in repo; no real personal data; no personal-data backend; no raw user text fields; local event log can be cleared.
+## 10. 10:1 hypothesis and test plan
+The 10:1 case is a hypothesis, not a result. The user value is preventing a rushed decision by making an existing safety behavior easier to remember and perform. In the pilot, compare each participant's current workaround with the Family Shield flow on comparable fictional scenarios: active time, number of steps, errors, help required, and correct explanation of the outcome. Record any willingness-to-pay or sponsor interest separately; do not infer it from compliments. Do not assign a speculative peso value to an avoided loss.
 
-## 11. Acceptance criteria
-- The first screen clearly says “Pausa antes de pagar.”
-- Every path makes clear that Family Shield does not authenticate voices or emergencies.
-- A user can reach either independent-confirmation outcome or Protocol Only.
+Mechanical checks: verify the family-member callback, contact 1, contact 2, confirmation, pause fallback, restart, and event-log clear action; then test mobile layout and keyboard navigation.
+
+Layer 1: synthetic Doña Mari, 54, sells food outside a metro station, uses WhatsApp, distrusts unfamiliar apps, and reads slowly. Synthetic findings are not real-user evidence.
+
+Layer 2: five real users who could receive or act on an urgent family call; at least three strangers. Record role, task, observed struggle, exact quote, assistance, and consented anonymous notes. Do not invent these sessions.
+
+Rank the three observed pains by severity, frequency, threat to the 10:1 case, and feasibility. Fix the #1 noncritical pain, redeploy, and repeat the same task. Count only an unsolicited repeat visit, message, or signup as a return signal.
+
+## 11. Security floor and acceptance criteria
+- No secrets in the repository.
+- No real personal data in demo content or seed data.
+- No backend table containing personal data; no Supabase credentials or public data endpoint.
+- No free-text personal-data forms.
+- Event log stores only generic event types and timestamps, with a visible clear control.
+- Every path states that Family Shield does not authenticate voices or emergencies.
 - No path displays “safe”, “authentic”, or “emergency verified”.
-- The event log records only generic event types and timestamps, with a visible clear control.
-- No user data is sent to a server; no credentials or secrets are included.
+- A user can reach either a reported independent check or the pause fallback.
 - All demo content is fictional and labeled.
+
+## References
+- UK Government, Stop! Think Fraud, “How to spot phone fraud”: https://stopthinkfraud.campaign.gov.uk/how-to-spot-fraud/how-to-spot-phone-fraud/
+- GovTech Singapore, “ScamShield”: https://www.tech.gov.sg/products-and-services/for-citizens/scam-prevention/scamshield/
+- Guardia Nacional CERT-MX, “Recomendaciones ante falsas llamadas con fines de fraude mediante la clonación de voz” (20 Feb 2026): https://www.gob.mx/gncertmx/es/articulos/recomendaciones-ante-falsas-llamadas-con-fines-de-fraude-mediante-la-clonacion-de-voz
+- SSPC, “Recomendaciones ante posibles fraudes por clonación de voz con inteligencia artificial” (13 Mar 2025): https://www.gob.mx/sspc/prensa/la-sspc-emite-recomendaciones-ante-posibles-fraudes-por-clonacion-de-voz-con-inteligencia-artificial
