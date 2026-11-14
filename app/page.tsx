@@ -56,10 +56,10 @@ export default function Home() {
         <a className="brand" href="#" onClick={(e) => { e.preventDefault(); restart(); }}>
           <span className="brand-mark">FS</span><span>FAMILY SHIELD</span>
         </a>
-        <span className="demo-pill">DEMO · DATOS FICTICIOS</span>
+        <nav className="home-nav"><a href="#protocolo">Protocolo</a><a href="/pricing">Planes y precios</a></nav><span className="demo-pill">DEMO · DATOS FICTICIOS</span>
       </header>
 
-      <section className="hero">
+      <section className="hero" id="protocolo">
         <div className="eyebrow">PROTOCOLO FAMILIAR DE VERIFICACIÓN</div>
         <h1>Pausa antes<br /><em>de pagar.</em></h1>
         <p className="hero-copy">Una llamada urgente puede sonar real. Antes de enviar dinero, verifica por otro medio con alguien de confianza.</p>
