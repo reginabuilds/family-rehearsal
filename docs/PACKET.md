@@ -1,111 +1,143 @@
-# FAMILY SHIELD — WEEK 13 PACKET
-**Owner:** Regina Cucchia Villalobos  
-**Role:** USER  
-**Milestone:** REAL HUMANS — FIVE USERS WHO DON'T LOVE YOU  
-**Status:** Product packet and working prototype are built. Five real-user sessions, the voluntary return signal, and the live demo recording remain outstanding.
+# FAMILY SHIELD — WEEK 14 PACKET
+**Course:** Brain Bending · Business Bending Week 14 — Pricing: The Number That Tells the Truth  
+**Owner:** Regina Cucchia Villalobos · **Role:** MONEY  
+**Venture:** Family Shield / Family Rehearsal  
+**Status:** Packet-first build plan. Prices and costs are hypotheses; no bank commitment or real buyer interview is claimed.
 
-## 1. Problem
-A person receives an urgent call or voice note that appears to come from a family member and asks for money. Fear and time pressure can make the recipient act before checking the story independently. Voice cloning means a familiar voice is no longer sufficient proof. The opportunity is to make a family verification routine easy to remember and follow before an emergency happens.
+## 1. Problem in my words
+A Mexican parent receives an urgent call that sounds like an adult child (18–25) who lives elsewhere and asks for money. Under pressure, a familiar voice, caller ID, or emotional story can trigger an immediate transfer. Family Shield helps a household prepare and rehearse a short independent-check routine before an emergency: pause, call the relative using a number already saved, then try two trusted contacts in order. The product sells preparedness and rehearsal, not detection or certainty.
 
-## 2. Exact user
-Initial segment: Mexican parents approximately 45–65 whose adult children (18–25) live elsewhere. The parent may receive the suspicious call and be asked to send money; the adult child is the person being impersonated or supposedly in danger. The experience must also work for an older adult who uses WhatsApp but has low confidence with unfamiliar apps, reads slowly, and may abandon a confusing flow.
+## 2. Exact user, buyer, and payer
+- **End user:** Mexican parent, initially about 45–65, whose adult child (18–25) lives elsewhere and could be impersonated in an urgent money request.
+- **Secondary user:** the adult child and two trusted contacts who agree on the family protocol in advance.
+- **Primary payer hypothesis:** a bank or financial institution sponsoring access as a customer-protection benefit (B2B2C).
+- **Secondary payer hypothesis:** a household buying Family Plus directly (D2C).
+- **Important distinction:** a bank is the preferred buyer to test, not a confirmed customer. No willingness-to-pay result has been collected.
 
 ## 3. Success definition
-A first-time user can follow the sequence without coaching: pause; call the family member using a number already saved; if unavailable, try trusted contact 1 and then trusted contact 2; and correctly understand the difference between a reported independent check and an unconfirmed request. The user understands that Family Shield itself does not verify identity. Functional usability is the prototype success criterion; it is not proof of fraud prevention, 10:1 value, willingness to pay, or commercial viability.
+Before the module closes, the live `/pricing` route works on mobile and desktop and lets a user:
+1. Compare three clear plans across two payer segments (households and institutions).
+2. Change eligible households/users, conversion or enrollment rate, and annual price.
+3. See paying/enrolled households, monthly revenue equivalent, annual gross revenue, variable cost, and contribution, with assumptions visible.
+4. Save, reload, compare, and delete at least three named scenarios in the browser.
+5. Understand that the free tier preserves the essential safety protocol and that payment buys setup, rehearsal, convenience, or distribution—not caller verification.
+6. See the same safety boundary on every plan.
+
+Commercial success is not assumed: the $120 institutional price, $199 Family Plus price, $24 variable cost, and 10:1 value hurdle remain hypotheses pending a real buyer conversation and measured pilot.
 
 ## 4. Image-generated mockup
-**Requirement status: intentionally omitted at the user's explicit instruction not to create an image.** The text wireframe below documents the intended screens but does not satisfy the course's image-generated mockup requirement.
+The image-generated Week 14 pricing mockup is stored at `public/week14-pricing-mockup.png`. It is a visual direction reference, not a claim that every displayed value has been validated. The working calculator must use internally consistent assumptions and labels.
 
-- **Home:** “Pausa antes de pagar.” Copy: “Antes de enviar dinero, comprueba la situación por otro medio.” CTA: “Iniciar verificación”.
-- **Pause:** “No envíes dinero todavía.” End the pressured call and check through a different known channel.
-- **Contact sequence:** call the family member on a saved number; if unavailable, trusted contact 1; then trusted contact 2. Never call back the number supplied by the suspicious caller.
-- **Outcome:** “¿Pudiste comprobarlo por otro medio?” If yes, record only that the user reports an independent check; if no, show “No se pudo comprobar. Mantén la pausa.”
-
-## 5. Mermaid flow / swimlanes
-~~~mermaid
+## 5. Feature flow — Mermaid swimlane
+```mermaid
 flowchart TD
-  subgraph HUMAN[PERSONA / FAMILIAR]
-    A[Receives urgent call or voice note]
-    B[Opens Family Shield]
-    C[Pauses; does not transfer money]
-    D[Calls family member on saved number]
-    E[Tries trusted contact 1]
-    F[Tries trusted contact 2]
-    G{Could the situation be checked independently?}
-    H[Keeps payment decision under own control]
-    I[Pause protocol: no transfer while unconfirmed]
+  subgraph HOUSEHOLD["Household / end user"]
+    A["Visits Family Shield"]
+    B["Compares Basic and Family Plus"]
+    C["Uses free protocol or selects Family Plus"]
+    D["Completes guided setup and rehearsal"]
   end
-  subgraph PRODUCT[FAMILY SHIELD]
-    J[Shows calm pause instruction]
-    K[Shows finite contact order]
-    L[Logs anonymous event type locally]
-    M[Shows non-certifying outcome]
+  subgraph BANK["Bank / institutional buyer"]
+    E["Reviews pilot scope and privacy boundary"]
+    F["Selects enrolled-household volume and price"]
+    G["Approves or rejects paid pilot"]
   end
-  subgraph TRUST[TRUSTED CONTACTS]
-    N[Confirm separately using an existing channel]
-    O[Unavailable / cannot confirm]
+  subgraph SYSTEM["Family Shield product"]
+    H["Shows 3 plans and free-vs-paid boundary"]
+    I["Calculator: users × conversion × annual price"]
+    J["Projects monthly / annual revenue and contribution"]
+    K["Saves named scenarios locally"]
+    L["Displays privacy and no-authentication warning"]
   end
-  A --> B --> J --> C --> D
-  D -->|No answer| E
-  E -->|No answer| F
-  D -->|Answers| N
-  E -->|Answers| N
-  F -->|Answers| N
-  F -->|No answer| O
-  N --> G
-  O --> G
-  G -->|Yes| M --> H
-  G -->|No| I
-  C --> L
-  D --> L
-  E --> L
-  F --> L
-  I --> L
-~~~
+  A --> H --> B
+  B --> C --> D
+  A --> E --> F --> I --> J --> G
+  J --> K
+  H --> L
+  G -->|Sponsor access| C
+```
 
-## 6. Benchmark line — global to local
-**Global benchmark:** UK Government's Stop! Think Fraud guidance recommends ending a pressured call, using a family safe phrase, and calling back on a known number. **Mexico localization:** Family Shield turns the same principle into a short Spanish-language routine for households: saved-number callback, two trusted contacts in a fixed order, and a plain-language pause fallback. Singapore's ScamShield is a complementary national example of scam checking, reporting, information, and helpline support; Mexican Guardia Nacional CERT-MX / SSPC guidance also encourages independent verification and family key words. Family Shield deliberately does not reproduce detection or payment-blocking features.
+## 6. Benchmark line — global to Mexico
+**The strongest comparable trust-channel benchmark is CommBank CallerCheck (Australia):** it uses a bank-controlled in-app prompt to help customers verify a call claiming to come from the bank. Family Shield cannot copy its authentication function because it does not control a family member's identity channel. It can localize the institutional distribution idea while keeping the family’s verification independent and user-controlled. **Take Five to Stop Fraud (UK)** contributes the simple pause-before-action behavior, and **U.S. FTC guidance** contributes the known-number callback plus second-contact fallback. Mexico localization is Spanish-first, mobile-light, printable, accessible to people with lower digital confidence, and designed around two trusted contacts; it does not depend on WhatsApp or one person answering.
 
 ## 7. Long view — three years
-If this slice works, Family Shield could become a lightweight family preparedness service that helps households configure trusted-contact order, private verification phrases, and periodic rehearsals. Distribution could be tested through banks or other trusted institutions, while keeping family data private and leaving payment decisions with the user. In three years, the product should still be a coordination and preparedness layer—not a voice-authenticity detector, emergency authority, or payment controller.
+If this slice works, Family Shield could become a lightweight family-preparedness service distributed directly and through trusted institutions. Households could configure their contact order and rehearse the protocol periodically, while institutions receive only aggregate, non-identifying adoption metrics. The product remains a preparedness and coordination layer—not a deepfake detector, identity authority, emergency service, or payment controller.
 
 ## 8. Scope cut
-- No deepfake, voice, face, or video detection.
-- No guarantee that a caller or emergency is authentic.
-- No payment initiation, payment blocking, or automatic transfer hold.
-- No access to balances, banking credentials, call recordings, WhatsApp messages, or family communications.
-- No automated contact dialing or contact-book access in this prototype.
-- No AI-generated emergency advice, 24/7 monitoring, or emergency response service.
-- No backend storage of personal or family data; only anonymous event types and timestamps are stored locally in the browser.
+- No voice, video, face, or deepfake detection.
+- No caller-authenticity verdict, “safe” badge, emergency guarantee, or guarantee against fraud.
+- No payment initiation, payment blocking, automatic hold, or access to bank accounts.
+- No access to phone contacts, call recordings, WhatsApp, messages, security phrases, or family communications.
+- No personally identifiable family information or raw rehearsal data shared with an institution.
+- No custom bank integration, human call center, or manual family onboarding in this slice.
+- No backend database or authentication because the pricing calculator stores only named scenario assumptions locally in the user's browser. No personal data is requested or stored.
 
 ## 9. Architecture + stack
-| Layer | Choice | Reason / boundary |
+| Layer | Choice | Reason |
 |---|---|---|
-| UI | Next.js 15.5.28 + React 19.1.2 + TypeScript | Small, testable client-side flow |
-| Styling | CSS | Responsive, visible focus, reduced-motion support |
-| Hosting | Vercel production project family-rehearsal | Public deployment; latest production build READY |
-| Source control | GitHub reginabuilds/family-rehearsal | Versioned code and docs |
-| Feedback | Browser localStorage | Anonymous event type + timestamp only; clearable |
-| Database / auth | None | No personal data is sent to a server |
-| Secrets | None in source | No API keys or third-party services |
+| Framework | Existing Next.js 15.5.28 | Continue the Week 13 codebase |
+| UI | React 19.1.2 + TypeScript | Interactive pricing calculator and scenarios |
+| Styling | CSS | Responsive, accessible, consistent with existing app |
+| Hosting | Vercel | Existing production hosting; deploy preview then production |
+| Source | GitHub `reginabuilds/family-rehearsal` | Existing venture repository |
+| Scenario persistence | Browser localStorage | Save scenario inputs only on the user's device |
+| Database / auth | None | No personal data is collected; no Supabase table needed |
+| Secrets | None | No API keys or secrets required |
 
-## 10. Test plan
-**10:1 value hypothesis:** the user value is preventing a rushed decision by making an existing safety behavior easier to remember and perform. It is a hypothesis, not a result. Compare each participant's current workaround with the Family Shield flow on equivalent fictional scenarios: active time, steps, errors, help required, and correct explanation of the outcome. Record willingness-to-pay or sponsor interest separately; never infer it from compliments or assign a speculative peso value to an avoided loss.
+## 10. Pricing decision and assumptions
+| Tier | Segment | Price | Included |
+|---|---|---:|---|
+| Basic Household | Household / end user | Free | Essential pause–call-back–two-trusted-contacts protocol and one basic rehearsal |
+| Family Plus | Household / direct payer | $199 MXN per household/year | Guided setup, repeat rehearsals, printable family instructions, accessible reminders |
+| Institutional | Bank / financial institution | $120 MXN per enrolled household/year | Sponsored access, agreed pilot scope, aggregate non-identifying engagement reporting; proposed 500-household minimum |
 
-**Mechanical pass:** T1 start; T2 acknowledge pause; T3 attempt family-member saved-number callback; T4 route to trusted contact 1 if no answer; T5 route to trusted contact 2 if no answer; T6 report independent check; T7 enter pause fallback; T8 restart; T9 clear event log; T10 test 390px viewport and keyboard navigation. All ten remain pending live browser verification.
+The institutional unit price is lower because the buyer aggregates households and distribution, reducing acquisition friction. Custom integration, legal review, or human support is not included and would require separate costing.
 
-**Layer 1 — synthetic persona:** Doña Mari, 54, sells food outside a metro station, uses WhatsApp, distrusts unfamiliar apps, and reads slowly. The synthetic walkthrough exposed jargon and ambiguity about which number to call; the code was revised to use plain Spanish and a clear family → contact 1 → contact 2 sequence. This is not a real participant session.
+### Unit economics — institutional opening hypothesis
+- Price: **$120 MXN / enrolled household / year**
+- Variable delivery and support allowance: **$24 MXN / household / year** (assumption, not measured)
+- Contribution: **$96 MXN / household / year**
+- Contribution margin: **80%**, before fixed engineering, sales, compliance, and administration costs
+- 500 enrolled households: **$60,000 annual gross revenue**, **$12,000 variable cost**, **$48,000 contribution** (not net profit)
+- Sensitivity: at $60 variable cost, contribution falls to $60 (50%); at $120 variable cost, contribution is zero before fixed costs.
 
-**Layer 2 — five real users:** recruit five people who could receive or act on an urgent family call; at least three must be strangers. Record participant code, role only, stranger status, task, observed behavior, time, help required, exact verbatim quote, and consent. Do not collect names, phone numbers, family codes, audio, or message contents. These sessions have not been conducted.
+### The 10:1 memo — deliberately adversarial
+At $120 per household/year, a 10:1 benefit-to-price hurdle requires **$1,200 MXN of measurable annual value per enrolled household** to the payer. This is not established by the possible loss from one scam, national fraud totals, or fear. The bank must identify an attributable value pool, such as reduced support workload for relevant incidents, and show its calculation and allocation method. If the bank cannot substantiate $1,200 per household, the 10:1 claim fails; we lower/restructure the price, change payer, or reject the model. Pilot measurement must include onboarding time, successful activation, ability to execute the protocol after one week, relevant support contacts, and cost per activated household.
 
-**Pain ranking and fix:** rank the three worst observed pains by severity, frequency, threat to the 10:1 case, and feasibility. Fix the #1 noncritical pain, redeploy, and repeat the same task under comparable conditions; preserve dated before/after evidence. Do not substitute synthetic findings for real-user results.
+## 11. Pricing calculator logic and saved scenarios
+- Direct-to-consumer: `paying households = eligible users × conversion rate`; `annual gross = paying households × annual price`; `monthly equivalent = annual gross ÷ 12`.
+- Institutional: `enrolled households = eligible households × enrollment rate`; `annual gross = enrolled households × price per household/year`; `monthly equivalent = annual gross ÷ 12`.
+- `variable cost = paying/enrolled households × variable cost per household`; `contribution = annual gross − variable cost`.
+- Scenario assumptions are visible and editable. Scenarios are saved locally; they are not transmitted to a server.
+- The 500-household example is explicitly 500 **enrolled** households at 100% enrollment of the 500-household pilot cohort, not 500 visitors at 1% conversion.
 
-**Return proof:** count only a voluntary repeat visit, unsolicited message, or signup. A compliment or an invited second task is not proof. No return signal has been observed yet.
+## 12. Real payer conversation — required, not fabricated
+**Status: NOT YET COMPLETED.** Target a decision-maker in fraud prevention, customer experience, financial education, digital banking, or customer protection—not a teller. Ask:  
+“Would your institution pay $120 MXN per enrolled household per year for a 500-household Family Shield pilot? If not, what evidence, price, budget owner, and procurement conditions would make it viable?”  
+Record date, role (not personal details), exact answer, objection, budget owner, procurement path, privacy requirements, and next step. Do not write a hypothetical response as evidence.
 
-**Security floor:** no secrets; no personal data in demo content; no backend personal-data table; no free-text personal-data forms; event log stores only generic event types and timestamps and can be cleared; no path claims that the app authenticates voices or emergencies.
+## 13. Security floor
+1. No secrets or API keys in code or repo.
+2. No personal data is collected; therefore no personal-data account or database is introduced.
+3. No Supabase tables exist; RLS is not applicable to this client-only prototype.
+4. Every numeric input has type/range validation and sensible bounds; scenario names have length limits.
+5. Only invented sample data is used. No real family contacts, phone numbers, phrases, messages, or recordings appear in demos.
+6. Institutional reporting is aggregate only. No family contact graph, vulnerability score, or raw rehearsal data is shared.
+7. Every tier repeats: “Family Shield does not verify who is calling. Pause and independently contact your relative using a number you already know.”
+
+## 14. Test plan
+**Mechanical pass:** test the /pricing route; validate minimum/maximum numeric inputs; test 0%, 1%, and 100% conversion; verify the $199 D2C example; verify 500 enrolled × $120 = $60,000 annual; verify $12,000 variable cost and $48,000 contribution at $24 cost; save/reload/compare/delete scenarios; test empty/long scenario names; test mobile width and keyboard focus. Log at least one actual bug, fix it, and redeploy—do not invent a bug before running the app.
+
+**Layer 1 synthetic persona:** Doña Mari, 54, sells food outside a metro station, uses WhatsApp but distrusts unfamiliar apps, reads slowly, and gives up silently when confused. Walk her through screenshots of pricing and the calculator; ask where she hesitates, what she thinks the plans promise, whether she understands the free/paid boundary, and whether the calculator makes sense. Log every confusion and fix the worst one. This is a synthetic test, not a real user interview.
+
+**Buyer test:** separately test the payer hypothesis with one qualified institutional decision-maker. A favorable reaction is not a purchase; record actual willingness to pay, budget owner, procurement path, privacy objections, and measurable-value requirement.
+
+**Acceptance criteria:** all arithmetic reconciles; scenarios persist locally; no false security promise; the $120 price is marked provisional; no fabricated interview or test results.
 
 ## References
-- UK Government, Stop! Think Fraud: https://stopthinkfraud.campaign.gov.uk/how-to-spot-fraud/how-to-spot-phone-fraud/
-- GovTech Singapore, ScamShield: https://www.tech.gov.sg/products-and-services/for-citizens/scam-prevention/scamshield/
-- Guardia Nacional CERT-MX (20 Feb 2026): https://www.gob.mx/gncertmx/es/articulos/recomendaciones-ante-falsas-llamadas-con-fines-de-fraude-mediante-la-clonacion-de-voz
-- SSPC (13 Mar 2025): https://www.gob.mx/sspc/prensa/la-sspc-emite-recomendaciones-ante-posibles-fraudes-por-clonacion-de-voz-con-inteligencia-artificial
+1. CommBank CallerCheck: https://www.commbank.com.au/support/security/callercheck.html
+2. Take Five to Stop Fraud: https://www.takefive-stopfraud.org.uk/about/about-us/
+3. U.S. FTC, AI voice-cloning family emergency scams: https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes
+4. CONDUSEF, Comunicado 081 (28 May 2026): https://www.condusef.gob.mx/documentos/prensa/Comunicado%20081.pdf
+
+**Evidence boundary:** price, variable cost, conversion, and 10:1 value are assumptions for testing. No real buyer commitment, pilot outcome, or fraud reduction is claimed.
