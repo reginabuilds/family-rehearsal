@@ -69,6 +69,15 @@ export default function PricingPage() {
   function saveScenario() {
     const name = scenarioName.trim().slice(0, 32);
     if (!name) { setNotice("Escribe un nombre para el escenario."); return; }
+    const duplicate = scenarios.some((item) =>
+      item.name.toLocaleLowerCase("es-MX") === name.toLocaleLowerCase("es-MX") &&
+      item.segment === segment &&
+      item.users === clamp(users, 0, 1000000) &&
+      item.conversion === clamp(conversion, 0, 100) &&
+      item.price === clamp(price, 0, 1000000) &&
+      item.variableCost === clamp(variableCost, 0, 1000000)
+    );
+    if (duplicate) { setNotice("Este escenario ya está guardado. Cambia algún dato o el nombre para guardar una versión diferente."); return; }
     if (scenarios.length >= 10) { setNotice("Puedes guardar hasta 10 escenarios. Elimina uno para guardar otro."); return; }
     const item: Scenario = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
