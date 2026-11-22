@@ -141,3 +141,43 @@ Record date, role (not personal details), exact answer, objection, budget owner,
 4. CONDUSEF, Comunicado 081 (28 May 2026): https://www.condusef.gob.mx/documentos/prensa/Comunicado%20081.pdf
 
 **Evidence boundary:** price, variable cost, conversion, and 10:1 value are assumptions for testing. No real buyer commitment, pilot outcome, or fraud reduction is claimed.
+
+---
+# WEEK 15 ADDENDUM — DISTRIBUTION
+**Owner:** Regina Cucchia Villalobos · **Role:** USER  
+**Status:** Strategy and assets prepared; real audience test and demo recording pending.
+
+## 15. Audience, need, moment
+Primary audience: Mexican parents/caregivers, initially 45–65, coordinating with an adult child living elsewhere. The critical user receives an urgent call or voice note that appears to come from a relative and requests money. Secondary audience: adult children and trusted relatives who agree on a contact sequence before a crisis. The payer remains unvalidated: household D2C and institutional sponsorship are hypotheses, not customers.
+
+## 16. Positioning and promise
+Family Shield is a family preparedness guide that helps users pause and check an urgent money request through a separate, known channel. Promise: “Pausa antes de pagar. Comprueba por otro medio.” Never promise cloned-voice detection, caller authentication, certainty that an emergency is real, prevention of every scam, or payment authorization. The prototype guides the user; it does not call, access contacts, verify identity, or control money.
+
+## 17. Existing evidence and its limits
+The working Spanish-language prototype shows pause → call saved family number → trusted contact 1 → trusted contact 2 → keep the pause if unconfirmed. This proves that the guided flow exists, not that it reduces fraud or that users understand it. The prior persona walkthrough is synthetic. No Week 15 audience views, clicks, shares, signups, or conversion results are claimed.
+
+## 18. Brand system
+Three voice rules: calm/non-alarmist; direct everyday Mexican Spanish; transparent about limits. Weak line: “Detecta si una voz es falsa con IA.” Rewritten: “Si una llamada te pide dinero con urgencia, haz una pausa y comprueba por otro medio.” Palette: forest green #1E3A2F, warm ivory #F7F7F1, sage #EAF1EB, ochre #C58B43, ink #26352D. Typography: Georgia/serif headline + DM Sans/Arial body. Repeatable layout: logo/series → one headline → 1–3 actions → visible limitation → one CTA.
+
+## 19. Six concepts across three series
+- A · Reconoce el riesgo: “Una voz conocida no es una verificación”; “La urgencia es una razón para pausar.”
+- B · Actúa en el momento: “Pausa antes de pagar”; “Si no contesta, ¿qué sigue?” Show family → contact 1 → contact 2 → pause.
+- C · Prepara a tu familia: “Acuerden hoy dos contactos de confianza”; “Practiquen el plan en cinco minutos.”
+Three finished asset scripts/copy are in docs/WEEK15_PLAYBOOK.md: six-frame carousel, 30-second Reel, and WhatsApp checklist.
+
+## 20. Creative production method
+Research: audience problem + sources → fact sheet; check source/date and no invented stats. Writing: fact sheet + audience + goal → Spanish copy; check clear action/no fear bait. Visual production: approved copy + brand system → carousel/video/checklist; check legibility, contrast, captions, mobile format. Evidence/claim check: final claims → claim ledger; verify every factual claim and show limitations. Style review: draft asset → brand-consistent asset; check three voice rules. Revision: real test observations → revised asset; check that confusion is reproduced and corrected. Human approval is mandatory before publication.
+
+## 21. Distribution test plan
+Primary channel: WhatsApp family sharing; secondary: Instagram carousel and Reel. Test Asset 1 carousel and Asset 2 Reel with five target users, ideally parents/caregivers 45–65 and adult children; recruit at least three strangers where feasible. Show each asset without explanation. Ask what they would do, which number they would call, what happens if nobody answers, what the product can/cannot do, and whether they would share it. Record participant codes only, consent, comprehension, hesitation, and voluntary next action. A mistaken belief that the app verifies callers is a stop-and-revise finding.
+
+## 22. Honest results
+NOT YET TESTED WITH A REAL AUDIENCE. No reach, click, signup, share, or conversion numbers are claimed. Use docs/WEEK15_TEST_LOG_TEMPLATE.md to record actual results. Zero response is valid evidence.
+
+## 23. Deployment and demo
+Existing protocol: https://family-rehearsal.vercel.app  
+Campaign page after successful deployment: https://family-rehearsal.vercel.app/distribution  
+The campaign page links to the protocol and does not collect personal data. Demo script: docs/DEMO_WEEK15_SCRIPT.md.
+
+## 24. Open evidence
+Pending: two-asset test with five real target users; live mechanical browser pass; 3:30 screen recording; full original build conversation export. Existing repository history already has more than five commits and multiple READY production deployments; preserve the real history rather than creating artificial commits.
