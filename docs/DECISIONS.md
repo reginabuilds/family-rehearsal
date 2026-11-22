@@ -35,3 +35,20 @@
 - The first deployment failed because of a vulnerable Next.js version; dependencies were upgraded to patched releases.
 - The latest production deployment is READY and the custom alias is assigned.
 - Do not claim human testing, return evidence, or a recorded video until those events actually happen.
+
+
+# WEEK 15 DISTRIBUTION DECISIONS
+
+- Audience: Mexican parents/caregivers coordinating with an adult child living elsewhere; secondary audience is adult children and trusted relatives.
+- Moment: urgent money request that appears to come from a family member.
+- Message: Pausa antes de pagar. Comprueba por otro medio.
+- Family Shield is a preparedness guide, not a deepfake detector or caller-authentication product.
+- Payer remains unvalidated: household D2C and institutional sponsorship are hypotheses.
+- Voice: calm, direct, respectful, transparent; no alarmism, blame, unsupported statistics, or false certainty.
+- Palette: forest green #1E3A2F, warm ivory #F7F7F1, sage #EAF1EB, ochre #C58B43, ink #26352D.
+- Primary channel: WhatsApp family sharing; secondary: Instagram carousel and Reel.
+- Test two assets with five real target users; at least three strangers where feasible. Real test remains pending.
+- Add a public /distribution explainer route linking to the live protocol; no personal-data capture.
+- Do not invent reach, clicks, shares, signups, user quotes, test results, commits, or deployments.
+- Existing repo history already has >5 commits and multiple READY production deployments; preserve it.
+- Pending human evidence: five real audience sessions, live browser test observations, 3:30 video, and original full build conversation export.
